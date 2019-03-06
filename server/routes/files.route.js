@@ -63,6 +63,7 @@ router.post('/', async (req, res) => {
   
       const response = await request(options);
       const file_data = fs.readFileSync('../openpiv/api-server/src/test_plot.jpg');
+      fs.unlinkSync("./client/src/assets/test_plot.jpg");
       fs.writeFileSync("./client/src/assets/test_plot.jpg", file_data);
       res.status(200).send(response);
       }
