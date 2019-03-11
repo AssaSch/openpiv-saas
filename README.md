@@ -1,4 +1,4 @@
-# openpiv-web-server
+# openpiv-saas
 developed and tested on ubunto 18.04
 
 ## installation:
