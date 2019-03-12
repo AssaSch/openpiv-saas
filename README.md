@@ -1,5 +1,5 @@
 # openpiv-saas
-developed and tested on ubunto 18.04
+developed and tested on ubuntu 18.04
 
 ## installation:
 ### javascript dependencies:
