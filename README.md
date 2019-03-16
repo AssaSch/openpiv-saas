@@ -29,3 +29,7 @@ For this version the flow supported is basic analysis of two images.
 from openpiv/api-server run: 
 1. $> source env/bin/activate
 2. $> python src/server.py
+
+## Development:
+after runnig both javascript and python server you should open your browser at: localhost:3000 .
+you should see the basic version with upload bar.
