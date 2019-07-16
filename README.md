@@ -13,6 +13,8 @@ For this version the flow supported is basic analysis of two images.
 
 ## Installation:
 1. clone openpiv-saas repository.
-2. install docker and docker-compose on your server.
+2. install docker and docker-compose on your server:
+  - example of install docker on ubuntu 16.04 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+  -  example of install docker-compose on ubuntu 16.04 https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04
 3. in openpiv-saas root directory run command: docker-compose up -d
 4. make sure the server can get incomming trafic from port 80. 
