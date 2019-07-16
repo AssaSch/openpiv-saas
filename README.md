@@ -1,17 +1,17 @@
 # openpiv-saas
 
 ## Background:
-This application consist of two parts:
-1. javascript client.
-2. python server.
+This application consist of two docker containers:
+1. client.
+2. server.
 
 ## Basic flow:
-The user sends process command using the web page. This command gets from the javascript client to the server.
-The python server to performs the neccessery action and gets back the result, pass it back to the client and shows it on screen.
-
-For this version the flow supported is basic analysis of two images.
+For this version the flow supported is basic analysis of two images:
+1. The user uploads two images and sends it to the server.
+2. The server performs the neccessery action and sends back the result file to the client.
 
 ## Installation:
+* prerequisites: operating system that can run docker containers.
 1. clone openpiv-saas repository to your server.
 2. in .env file in the root of client directory, change the REACT_APP_SERVER_URL to your server url.
 3. install docker and docker-compose on your server:
