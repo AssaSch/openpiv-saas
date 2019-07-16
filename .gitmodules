@@ -1,6 +1,0 @@
-[submodule "openpiv/openpiv-python-gpu"]
-	path = openpiv/openpiv-python-gpu
-	url = https://github.com/OpenPIV/openpiv-python-gpu.git
-[submodule "openpiv/openpiv-python"]
-	path = openpiv/openpiv-python
-	url = https://github.com/OpenPIV/openpiv-python.git
