@@ -5,7 +5,7 @@ Basic SaaS version of OpenPIV package.
 ## Basic flow:
 For this version the flow supported is basic analysis of two images:
 1. The user uploads two images and sends it to the server.
-2. The server performs the neccessery action and sends back the result file to the client.
+2. The server performs the neccessery action and sends back the result file to the user.
 
 ## Installation:
 * prerequisites: operating system that can run docker containers.
