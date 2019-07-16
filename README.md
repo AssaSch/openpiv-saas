@@ -1,9 +1,6 @@
 # openpiv-saas
 
-## Background:
-This application consist of two docker containers:
-1. client.
-2. server.
+Basic SaaS version of OpenPIV package.
 
 ## Basic flow:
 For this version the flow supported is basic analysis of two images:
