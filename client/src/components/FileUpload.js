@@ -5,18 +5,21 @@ import fileDownload from 'js-file-download';
 class fileUpload extends Component {
 
   state = {
-    selectedFiles: null,
-    result: null,
-    image1: null,
-    image2: null,
+    image1: '',
+    image2: '',
+    formFields: {
+      searchSize: '',
+      winSize: '',
+      overlap: '',
+      dt: '',
+    }
+  }
+
+  componentDidMount() {
+
   }
 
   fileSelectedHandler = (event) => {
-    // if (this.state.selectedFiles !== event.target.files) {
-    //   this.setState({
-    //     selectedFiles: event.target.files
-    //   }); 
-    // }
     if (event.target.files.length !== 2) {
       console.log('Must select exactly two files');
       return;
@@ -40,70 +43,63 @@ class fileUpload extends Component {
     reader2.readAsDataURL(event.target.files[1]);
   }
 
-  fileUploadHandler = async (event) => {
-    // if (this.state.selectedFiles[0]) {
-    //   const reader1  = new FileReader();
-    //   reader1.onloadend = (e) => {
-    //     const base64result = e.target.result.split(',')[1];
-    //     this.setState({
-    //       image1: base64result
-    //     });
-    //   }
-    //   reader1.readAsDataURL(this.state.selectedFiles[0]);
-    // }
-
-    // if (this.state.selectedFiles[1]) {
-    //   const reader2  = new FileReader();
-    //   reader2.onloadend = (e) => {
-    //     const base64result = e.target.result.split(',')[1];
-    //     this.setState({
-    //       image2: base64result
-    //     });
-    //   }
-    //   reader2.readAsDataURL(this.state.selectedFiles[1]);
-    // }
-    const { image1, image2 } = this.state;
+  handleSubmit = (event) => {
+    console.log(this.state);
+    const { image1, image2, formFields: { searchSize, winSize, overlap, dt } } = this.state;
     if (image1 && image2) {
       const body = {
         image1,
-        image2
+        image2,
+        searchSize,
+        winSize,
+        overlap,
+        dt
       };
-      // const response = await axios.post(`localhost:4000/api/openpiv`, body);
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}:4000/api/openpiv`, body);
-      const result = window.atob(response.data);
-      fileDownload(result, 'result.txt');
+      axios.post(`${process.env.REACT_APP_SERVER_URL}:4000/api/openpiv`, body)
+      .then((response) => {
+        const result = window.atob(response.data);
+        fileDownload(result, 'result.txt');
+      });
     }
+    event.preventDefault();
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    // const { image1, image2 } = this.state; 
-    // if (image1 && image2 !== prevState.image2) {
-    //   const body = {
-    //     image1: this.state.image1,
-    //     image2: this.state.image2
-    //   };
-    //   const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}:4000/api/openpiv`, body);
-    //   const result = window.atob(response.data);
-    //   fileDownload(result, 'result.txt');
-    // }
-  }
+  inputChangeHandler = (e) => {
+    let formFields = {...this.state.formFields};
+    formFields[e.target.name] = e.target.value;
+    this.setState({
+     formFields
+    });
+   }
 
   render() {
     console.log(this.state);
     const { image1, image2 } = this.state;
     return (
-      <div className="fileUpload" >
-        <input type="file" onChange={this.fileSelectedHandler} required multiple />
-        <button onClick={this.fileUploadHandler}> Upload </button>
-        <br />
-        {/* <img src={"data:image/png;base64," +  image1} />} */}
-        <div style={{ padding: "20x" }}>
-          {image1 && <img alt='img1' src={"data:image/png;base64," + image1} />}
-        </div>
-        <div>
-          {image2 && <img alt='img2' src={"data:image/png;base64," + image2} />}
-        </div>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Files:
+          <input type="file" onChange={this.fileSelectedHandler} required multiple />
+        </label>
+        <label>
+          search area size:
+          <input type="number" name="searchSize" value={this.state.searchSize} onChange={this.inputChangeHandler} />
+        </label>
+        <label>
+          window size size:
+          <input type="number" name="winSize" value={this.state.winSize} onChange={this.inputChangeHandler} />
+        </label>
+        <label>
+          overlap:
+          <input type="number" name="overlap" value={this.state.overlap} onChange={this.inputChangeHandler} />
+        </label>
+        <label>
+          dt:
+          <input type="number" name="dt" value={this.state.dt} onChange={this.inputChangeHandler} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      // {image1 && <img alt='img1' src={"data:image/png;base64," + image1} />}
     );
   }
 }

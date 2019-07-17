@@ -8,8 +8,11 @@ import matplotlib.pyplot as plt
 import base64
 
 
-def two_images(image_1, image_2):
-
+def two_images(image_1, image_2, searchSize, winSize, overlap, dt):
+    print(searchSize)
+    print(winSize)
+    print(overlap)
+    print(dt)
     with open("image_1.bmp", "wb") as fh1:
         fh1.write(base64.b64decode(image_1))
 
