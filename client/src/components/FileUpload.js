@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
+// import Card from 'antd/es/card';
+import { Card, Form, Input, Upload, Icon } from 'antd';
+import Button from 'antd/es/button';
+
+const { Meta } = Card;
 
 class fileUpload extends Component {
 
   state = {
     image1: '',
     image2: '',
+    resultImage: '',
     formFields: {
       searchSize: '',
       winSize: '',
@@ -20,6 +26,7 @@ class fileUpload extends Component {
   }
 
   fileSelectedHandler = (event) => {
+    console.log(event);
     if (event.target.files.length !== 2) {
       console.log('Must select exactly two files');
       return;
@@ -58,6 +65,9 @@ class fileUpload extends Component {
       axios.post(`${process.env.REACT_APP_SERVER_URL}:4000/api/openpiv`, body)
       .then((response) => {
         const result = window.atob(response.data);
+        this.setState({
+          resultImage: response.imag
+        })
         fileDownload(result, 'result.txt');
       });
     }
@@ -72,34 +82,123 @@ class fileUpload extends Component {
     });
    }
 
+  // render() {
+  //   console.log(this.state);
+  //   const { image1, image2 } = this.state;
+  //   return (
+  //     <>
+  //     <Form className='fileUpload_main_form' onSubmit={this.handleSubmit}>
+  //     <Form.Item label="Upload" >
+  //         <Upload multiple name="logo" onChange={this.fileSelectedHandler} listType="picture-card">
+  //           <Button>
+  //             <Icon type="upload" /> Click to upload
+  //           </Button>
+  //         </Upload>
+  //       </Form.Item>
+  //       <label>
+  //         Files:
+  //         <input type="file" onChange={this.fileSelectedHandler} required multiple />
+  //       </label>
+  //       <label>
+  //         search area size:
+  //         <input type="number" className='fileUpload_input' name="searchSize" value={this.state.searchSize} onChange={this.inputChangeHandler} />
+  //       </label>
+  //       <label>
+  //         window size size:
+  //         <input type="number" className='fileUpload_input' name="winSize" value={this.state.winSize} onChange={this.inputChangeHandler} />
+  //       </label>
+  //       <label>
+  //         overlap:
+  //         <input type="number" className='fileUpload_input' name="overlap" value={this.state.overlap} onChange={this.inputChangeHandler} />
+  //       </label>
+  //       <label>
+  //         dt:
+  //         <input type="number" className='fileUpload_input' step="0.01" name="dt" value={this.state.dt} onChange={this.inputChangeHandler} />
+  //       </label>
+  //       <input className='fileUpload_submit' type="submit" value="Submit" />
+  //       {/* { image1 && <img alt='img1' src={"data:image/png;base64," + image1} /> } */}
+  //     </Form>
+  //     <div className='fileUpload_cards'> {image1 && <Card
+  //       hoverable
+  //       style={{ width: 400 }}
+  //       cover={<img alt="image_1" src={"data:image/png;base64," + image1} />}
+  //     >
+  //       <Meta title="image 1 preview" />
+  //     </Card>}
+  //     {image2 && <Card
+  //       hoverable
+  //       style={{ width: 400 }}
+  //       cover={<img alt="image_2" src={"data:image/png;base64," + image2} />}
+  //     >
+  //       <Meta title="image 2 preview" />
+  //     </Card>}
+  //     </div>
+  //     <Button type="primary">Button</Button>
+  //   </>
+  //   );
+  // }
+
+  // render() {
+  //   return (
+  //   <Form>
+  //     <Form.Item label="Field A" >
+  //       <Input placeholder="input placeholder" />
+  //     </Form.Item>
+  //     <Form.Item label="Field B" >
+  //      <Input placeholder="input placeholder" />
+  //     </Form.Item>
+  //     <Form.Item >
+  //       <Button type="primary">Submit</Button>
+  //     </Form.Item>
+  //   </Form>
+  //   )
+  // }
+
   render() {
     console.log(this.state);
     const { image1, image2 } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <>
+      <form className='fileUpload_main_form' onSubmit={this.handleSubmit}>
         <label>
           Files:
           <input type="file" onChange={this.fileSelectedHandler} required multiple />
         </label>
         <label>
           search area size:
-          <input type="number" name="searchSize" value={this.state.searchSize} onChange={this.inputChangeHandler} />
+          <input type="number" className='fileUpload_input' name="searchSize" value={this.state.searchSize} onChange={this.inputChangeHandler} />
         </label>
         <label>
           window size size:
-          <input type="number" name="winSize" value={this.state.winSize} onChange={this.inputChangeHandler} />
+          <input type="number" className='fileUpload_input' name="winSize" value={this.state.winSize} onChange={this.inputChangeHandler} />
         </label>
         <label>
           overlap:
-          <input type="number" name="overlap" value={this.state.overlap} onChange={this.inputChangeHandler} />
+          <input type="number" className='fileUpload_input' name="overlap" value={this.state.overlap} onChange={this.inputChangeHandler} />
         </label>
         <label>
           dt:
-          <input type="number" name="dt" value={this.state.dt} onChange={this.inputChangeHandler} />
+          <input type="number" className='fileUpload_input' step="0.01" name="dt" value={this.state.dt} onChange={this.inputChangeHandler} />
         </label>
-        <input type="submit" value="Submit" />
+        <input className='fileUpload_submit' type="submit" value="Submit" />
+        {/* { image1 && <img alt='img1' src={"data:image/png;base64," + image1} /> } */}
       </form>
-      // {image1 && <img alt='img1' src={"data:image/png;base64," + image1} />}
+      <div className='fileUpload_cards'> {image1 && <Card
+        hoverable
+        style={{ width: 400 }}
+        cover={<img alt="image_1" src={"data:image/png;base64," + image1} />}
+      >
+        <Meta title="image 1 preview" />
+      </Card>}
+      {image2 && <Card
+        hoverable
+        style={{ width: 400 }}
+        cover={<img alt="image_2" src={"data:image/png;base64," + image2} />}
+      >
+        <Meta title="image 2 preview" />
+      </Card>}
+      </div>
+    </>
     );
   }
 }
