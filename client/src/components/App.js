@@ -13,7 +13,7 @@ class App extends Component {
       <div className="container">
         <BrowserRouter>
           <div>
-            <h3 > Openpiv web platform </h3>
+            <h1 > Openpiv web platform </h1>
             <Route exact path="/" component={Landing} />
             <Route exact path="/results" component={Results} />
           </div>

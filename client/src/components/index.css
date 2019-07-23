@@ -16,10 +16,14 @@ body {
 }
 
 .fileUpload_input {
-  width: 100px
+  width: 100px;
 }
 
 .fileUpload_cards {
   display: flex;
   flex-direction: row;
+}
+
+.fileUpload_label {
+  padding: 5px;
 }

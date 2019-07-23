@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
-// import Card from 'antd/es/card';
-import { Card, Form, Input, Upload, Icon } from 'antd';
-import Button from 'antd/es/button';
+import { Card, Form, Input, Upload, Icon, Button } from 'antd';
+
 
 const { Meta } = Card;
 
@@ -160,28 +159,27 @@ class fileUpload extends Component {
     return (
       <>
       <form className='fileUpload_main_form' onSubmit={this.handleSubmit}>
-        <label>
+        <label className='fileUpload_label'>
           Files:
           <input type="file" onChange={this.fileSelectedHandler} required multiple />
         </label>
-        <label>
+        <label className='fileUpload_label'>
           search area size:
           <input type="number" className='fileUpload_input' name="searchSize" value={this.state.searchSize} onChange={this.inputChangeHandler} />
         </label>
-        <label>
+        <label className='fileUpload_label'>
           window size size:
           <input type="number" className='fileUpload_input' name="winSize" value={this.state.winSize} onChange={this.inputChangeHandler} />
         </label>
-        <label>
+        <label className='fileUpload_label'>
           overlap:
           <input type="number" className='fileUpload_input' name="overlap" value={this.state.overlap} onChange={this.inputChangeHandler} />
         </label>
-        <label>
+        <label className='fileUpload_label'>
           dt:
           <input type="number" className='fileUpload_input' step="0.01" name="dt" value={this.state.dt} onChange={this.inputChangeHandler} />
         </label>
         <input className='fileUpload_submit' type="submit" value="Submit" />
-        {/* { image1 && <img alt='img1' src={"data:image/png;base64," + image1} /> } */}
       </form>
       <div className='fileUpload_cards'> {image1 && <Card
         hoverable
