@@ -2,3 +2,5 @@
 openpiv/api-server/env
 openpiv/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
 *.old
+server/env
+server/src/__pycache__/

@@ -1,5 +1,29 @@
+/* @import 'antd/dist/antd.css'; */
+
 body {
     margin: 0;
     padding: 20px;
     font-family: sans-serif;
   }
+
+.fileUpload_main_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.fileUpload_submit {
+  width: 300px;
+}
+
+.fileUpload_input {
+  width: 100px;
+}
+
+.fileUpload_cards {
+  display: flex;
+  flex-direction: row;
+}
+
+.fileUpload_label {
+  padding: 5px;
+}
