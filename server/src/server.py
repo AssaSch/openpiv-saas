@@ -26,7 +26,7 @@ class Openpiv(Resource):
         if overlap:
             overlap = int(overlap)
         if dt:
-            dt = int(dt)
+            dt = float(dt)
             
         data = openpiv_handler.two_images(image1, image2, searchSize, winSize, overlap, dt)
         return data ,200
