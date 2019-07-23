@@ -25,7 +25,6 @@ class fileUpload extends Component {
   }
 
   fileSelectedHandler = (event) => {
-    console.log(event);
     if (event.target.files.length !== 2) {
       console.log('Must select exactly two files');
       return;
@@ -50,7 +49,6 @@ class fileUpload extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log(this.state);
     const { image1, image2, formFields: { searchSize, winSize, overlap, dt } } = this.state;
     if (image1 && image2) {
       const body = {
@@ -82,7 +80,6 @@ class fileUpload extends Component {
    }
 
   render() {
-    console.log(this.state);
     const { image1, image2 } = this.state;
     return (
       <>
