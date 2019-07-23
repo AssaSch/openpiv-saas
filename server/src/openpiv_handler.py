@@ -20,6 +20,15 @@ def two_images(image_1, image_2, search_area_size=64, window_size=32, overlap=16
     frame_a = (frame_a*1024).astype(np.int32)
     frame_b = (frame_b*1024).astype(np.int32)
 
+    if not search_area_size:
+        search_area_size = 64
+    if not window_size:
+        window_size = 32
+    if not overlap:
+        overlap = 16
+    if not dt:
+        dt = 0.02
+
     u, v, sig2noise = process.extended_search_area_piv( frame_a, frame_b, window_size=window_size, 
         overlap=overlap, dt=dt, search_area_size=search_area_size, sig2noise_method='peak2peak' )
     x, y = process.get_coordinates( image_size=frame_a.shape, window_size=window_size, overlap=overlap )
