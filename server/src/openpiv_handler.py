@@ -37,14 +37,31 @@ def two_images(image_1, image_2, search_area_size=64, window_size=32, overlap=16
     u, v = filters.replace_outliers( u, v, method='localmean', max_iter=10, kernel_size=2)
     x, y, u, v = scaling.uniform(x, y, u, v, scaling_factor = 96.52 )
 
-    file_name = 'result.txt'
-    if os.path.isfile(file_name):
-        os.remove(file_name)
-    tools.save(x, y, u, v, mask, file_name)
+    file_name_text = 'result.txt'
+    file_name_png = 'result.png'
+    if os.path.isfile(file_name_text):
+        os.remove(file_name_text)
+    if os.path.isfile(file_name_png):
+        os.remove(file_name_png)
+    tools.save(x, y, u, v, mask, file_name_text)
+    a = np.loadtxt(file_name_text)
+    fig = plt.figure()
+    invalid = a[:,4].astype('bool')
+    fig.canvas.set_window_title('Vector field, '+str(np.count_nonzero(invalid))+' wrong vectors')
+    valid = ~invalid
+    plt.quiver(a[invalid,0],a[invalid,1],a[invalid,2],a[invalid,3],color='r',scale=100, width=0.0025)
+    plt.quiver(a[valid,0],a[valid,1],a[valid,2],a[valid,3],color='b',scale=100, width=0.0025)
+    plt.draw()
+    plt.savefig(file_name_png, format="png")
  
-    with open(file_name, "rb") as resultFile:
-        file_reader = resultFile.read()
-        image_encode = base64.encodestring(file_reader)
-        base64_string = str(image_encode, 'utf-8')
+    with open(file_name_text, "rb") as resultFileText:
+        file_reader_text = resultFileText.read()
+        text_encode = base64.encodestring(file_reader_text)
+        base64_string_text = str(text_encode, 'utf-8')
     
-    return base64_string
+    with open(file_name_png, "rb") as resultFilePng:
+        file_reader_image = resultFilePng.read()
+        image_encode = base64.encodestring(file_reader_image)
+        base64_string_image = str(image_encode, 'utf-8')
+    
+    return base64_string_text, base64_string_image

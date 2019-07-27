@@ -61,11 +61,11 @@ class fileUpload extends Component {
       };
       axios.post(`${process.env.REACT_APP_SERVER_URL}:4000/api/openpiv`, body)
       .then((response) => {
-        const result = window.atob(response.data);
+        const result_text = window.atob(response.data.text_data);
         this.setState({
-          resultImage: response.imag
-        })
-        fileDownload(result, 'result.txt');
+          resultImage: response.data.image_data
+        });
+        fileDownload(result_text, 'result.txt');
       });
     }
     event.preventDefault();
@@ -80,7 +80,7 @@ class fileUpload extends Component {
    }
 
   render() {
-    const { image1, image2 } = this.state;
+    const { image1, image2, resultImage } = this.state;
     return (
       <>
       <form className='fileUpload_main_form' onSubmit={this.handleSubmit}>
@@ -120,6 +120,15 @@ class fileUpload extends Component {
       >
         <Meta title="image 2 preview" />
       </Card>}
+      </div>
+      <div>
+        {resultImage && <Card
+          hoverable
+          style={{ width: 800 }}
+          cover={<img alt="result_image" src={"data:image/png;base64," + resultImage} />}
+        >
+          <Meta title="result" />
+        </Card>}
       </div>
     </>
     );

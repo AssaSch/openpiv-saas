@@ -28,8 +28,10 @@ class Openpiv(Resource):
         if dt:
             dt = float(dt)
             
-        data = openpiv_handler.two_images(image1, image2, searchSize, winSize, overlap, dt)
-        return data ,200
+        text_data, image_data = openpiv_handler.two_images(image1, image2, searchSize, winSize, overlap, dt)
+        message = json.dumps({ "text_data": text_data, "image_data": image_data })
+        return Response(message, status=200, mimetype='application/json')
+        # return jsonify(data) ,200
     
 api.add_resource(Openpiv, "/api/openpiv")
 
