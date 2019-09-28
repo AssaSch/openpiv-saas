@@ -31,8 +31,7 @@ class Openpiv(Resource):
         text_data, image_data = openpiv_handler.two_images(image1, image2, searchSize, winSize, overlap, dt)
         message = json.dumps({ "text_data": text_data, "image_data": image_data })
         return Response(message, status=200, mimetype='application/json')
-        # return jsonify(data) ,200
     
 api.add_resource(Openpiv, "/api/openpiv")
 
-app.run(port=4000, debug=True, host='0.0.0.0')
+app.run(port=443, debug=True, host='0.0.0.0')

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
-import { Card, Form, Input, Upload, Icon, Button } from 'antd';
-
+import { Card } from 'antd';
 
 const { Meta } = Card;
 
@@ -18,10 +17,6 @@ class fileUpload extends Component {
       overlap: '',
       dt: '',
     }
-  }
-
-  componentDidMount() {
-
   }
 
   fileSelectedHandler = (event) => {
@@ -59,7 +54,7 @@ class fileUpload extends Component {
         overlap,
         dt
       };
-      axios.post(`${process.env.REACT_APP_SERVER_URL}:4000/api/openpiv`, body)
+      axios.post(`${process.env.REACT_APP_SERVER_URL}:443/api/openpiv`, body)
       .then((response) => {
         const result_text = window.atob(response.data.text_data);
         this.setState({
@@ -84,24 +79,24 @@ class fileUpload extends Component {
     return (
       <>
       <form className='fileUpload_main_form' onSubmit={this.handleSubmit}>
-        <label className='fileUpload_label'>
-          Files:
+        <label>
+          Please upload two images:
           <input type="file" onChange={this.fileSelectedHandler} required multiple />
         </label>
-        <label className='fileUpload_label'>
-          search area size:
+        <label>
+          Search area size (in pixels):
           <input type="number" className='fileUpload_input' name="searchSize" value={this.state.searchSize} onChange={this.inputChangeHandler} />
         </label>
-        <label className='fileUpload_label'>
-          window size size:
+        <label>
+          Window size size (in pixels):
           <input type="number" className='fileUpload_input' name="winSize" value={this.state.winSize} onChange={this.inputChangeHandler} />
         </label>
-        <label className='fileUpload_label'>
-          overlap:
+        <label>
+          Overlap (in pixels):
           <input type="number" className='fileUpload_input' name="overlap" value={this.state.overlap} onChange={this.inputChangeHandler} />
         </label>
-        <label className='fileUpload_label'>
-          dt:
+        <label>
+          Time between two images (in seconds):
           <input type="number" className='fileUpload_input' step="0.01" name="dt" value={this.state.dt} onChange={this.inputChangeHandler} />
         </label>
         <input className='fileUpload_submit' type="submit" value="Submit" />
